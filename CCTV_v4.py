@@ -43,7 +43,7 @@ while True:
     contours, _ = cv2.findContours(fgMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y - %H:%M:%S")
-    cv2.putText(frame, dt_string, (1110, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
+    cv2.putText(frame, dt_string, (1110, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
     motion = False
 
     # Process each contour
