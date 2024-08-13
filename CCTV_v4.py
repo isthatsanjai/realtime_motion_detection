@@ -19,8 +19,8 @@ backSub = cv2.createBackgroundSubtractorMOG2()
 vcap = cv2.VideoCapture(0)
 
 # Define frame size and codec for output video
-frameWidth = int(vcap.get(cv2.CAP_PROP_FRAME_WIDTH))
-frameHeight = int(vcap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+frameWidth = 1920
+frameHeight = 1080
 frameSize = (frameWidth, frameHeight)
 
 
@@ -41,7 +41,9 @@ while True:
 
     # Find contours in the foreground mask
     contours, _ = cv2.findContours(fgMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y - %H:%M:%S")
+    cv2.putText(frame, dt_string, (1110, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
     motion = False
 
     # Process each contour
@@ -54,8 +56,8 @@ while True:
         # Draw bounding rectangle and label
         x, y, w, h = cv2.boundingRect(c)
         color = (0, 255, 0)
-        cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-        cv2.putText(frame, "Motion Detected", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
+        cv2.rectangle(frame, (x, y), (x + w, y + h), color, 1)
+        cv2.putText(frame, "Motion Detected", (5, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
     # Update motion counters
     if motion:
@@ -83,7 +85,7 @@ while True:
 
     # Write the frame if recording
     if recording:
-        cv2.putText(frame, "Started Recording", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)  # Add text overlay
+        cv2.putText(frame, "Started Recording", (620, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)  # Add text overlay
         out.write(frame)
 
     # Display the frame and foreground mask
